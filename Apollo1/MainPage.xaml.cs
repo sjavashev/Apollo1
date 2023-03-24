@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Json;
+﻿using System.Net;
+using System.Net.Http.Json;
 
 namespace Apollo1;
 
@@ -17,8 +18,12 @@ public partial class MainPage : ContentPage {
 
 	async void ThisPage_Appearing(System.Object sender, System.EventArgs evt) {
 		try {
-			using var client = new HttpClient();
-			var response = await client.GetAsync("https://localhost:16000");
+			ServicePointManager.ServerCertificateValidationCallback += delegate { return true; };
+			using var client = new HttpClient(new HttpClientHandler() {
+				ServerCertificateCustomValidationCallback = delegate { return true; },
+			});
+
+			var response = await client.GetAsync("https://192.168.1.64:16000");
 			var json = await response.Content.ReadAsStringAsync();
 			Message = json;
 		}
