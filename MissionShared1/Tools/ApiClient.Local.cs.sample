@@ -1,0 +1,12 @@
+﻿using System;
+using System.Net;
+
+namespace MissionShared1.Tools {
+	public partial class ApiClient {
+#if DEBUG
+		const bool IS_MOCK_SSL = true;
+		const string BASE_URL = "https://192.168.1.64:16000";
+#endif
+	}
+}
+
