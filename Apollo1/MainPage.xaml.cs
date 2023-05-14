@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using MissionShared1;
 using MissionShared1.Tools;
 
 namespace Apollo1;
@@ -19,9 +20,14 @@ public partial class MainPage : ContentPage {
 
 	async void ThisPage_Appearing(System.Object sender, System.EventArgs evt) {
 		try {
-			var response = await ApiClient.GetAsync("/");
-			var json = await response.Content.ReadAsStringAsync();
-			Message = json;
+			var op_houston = await ApiClient.GetAsync<HoustonAnswer>("/");
+
+			if (op_houston.Status == OpStatus.OK) {
+				Message = $"Houston: OK - {op_houston.Data.Text} ({op_houston.Data.StatusCode})";
+			}
+			else {
+				Message = $"Houston PANIC: {op_houston.Status} [{op_houston.Description}]";
+			}
 		}
 		catch (Exception e) {
 			Console.WriteLine(e);
@@ -29,6 +35,10 @@ public partial class MainPage : ContentPage {
 			throw;
 #endif
 		}
+	}
+
+	private void Button_Clicked(object sender, EventArgs e) {
+		ThisPage_Appearing(sender, e);
 	}
 
 	string _message = "...";

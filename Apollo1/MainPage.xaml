@@ -10,6 +10,8 @@
 	<StackLayout>
 		<Label Text="{Binding Message}"
 			   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+
+		<Button Text="Reload!" Clicked="Button_Clicked" Margin="5"/>
 	</StackLayout>
 
 </ContentPage>

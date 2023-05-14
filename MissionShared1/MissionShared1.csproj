@@ -9,7 +9,4 @@
   <ItemGroup>
     <None Remove="Tools\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tools\" />
-  </ItemGroup>
 </Project>
